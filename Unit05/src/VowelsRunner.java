@@ -1,7 +1,7 @@
 //(c) A+ Computer Science
 //www.apluscompsci.com
-//Name -
-//Date -
+//Name - Moya Zhang
+//Date - 2/6/2019
 
 public class VowelsRunner
 {
