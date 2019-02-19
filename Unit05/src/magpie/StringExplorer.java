@@ -16,12 +16,33 @@ public class StringExplorer
 		int position = sample.indexOf("quick");
 		System.out.println ("sample.indexOf(\"quick\") = " + position);
 		
+		int pos = sample.indexOf("slow");
+		if(pos != -1)
+		   System.out.println("slow is found at position " + pos);
+		else
+		   System.out.println("slow is not found");
+		
 		//  Demonstrate the toLowerCase method.
 		String lowerCase = sample.toLowerCase();
 		System.out.println ("sample.toLowerCase() = " + lowerCase);
 		System.out.println ("After toLowerCase(), sample = " + sample);
 		
 		//  Try other methods here:
+		String str = "Computer Science is the best, the greatest, and the most wonderful subject to study!";
+		
+		int index;
+		position = 0;
+		for (int i = 0; i<str.length(); i++) 
+		{
+			index = str.indexOf("the",i);
+			if (index >= 0) 
+			{
+				i = index;
+				position++;
+			}
+		}
+		System.out.println ("str.indexOf(\"the\") = " + position);
+
 
 	}
 
