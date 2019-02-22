@@ -36,17 +36,52 @@ public class Magpie4
 		{
 			response = "Say something, please.";
 		}
-
-		else if (findKeyword(statement, "no") >= 0)
+		
+		else if (findKeyword(statement, "Hi") >= 0
+				|| findKeyword(statement, "Hello") >= 0
+				|| findKeyword(statement, "What's up") >= 0)
 		{
-			response = "Why so negative?";
+			response = "Greetings! I hope you're having a great day!";
 		}
+		
+		else if (findKeyword(statement, "college") >= 0 
+				|| findKeyword(statement, "school") >= 0
+				|| findKeyword(statement, "class") >= 0)
+		{
+			response = "Good luck in school!";
+		}
+		
 		else if (findKeyword(statement, "mother") >= 0
 				|| findKeyword(statement, "father") >= 0
 				|| findKeyword(statement, "sister") >= 0
 				|| findKeyword(statement, "brother") >= 0)
 		{
 			response = "Tell me more about your family.";
+		}
+		
+	//part 4
+		else if (findKeyword(statement, "dog") >= 0
+				|| findKeyword(statement, "cat") >= 0
+				|| findKeyword(statement, "hamster") >= 0
+				|| findKeyword(statement, "bunny") >= 0)
+		{
+			response = "Tell me more about your pets.";
+		}
+		
+		else if (findKeyword(statement, "Mauro") >= 0)
+		{
+			response = "He is a great computer science teacher!";
+		}
+		
+		else if (findKeyword(statement, "Shut up") >= 0
+				|| findKeyword(statement, "Be quiet") >= 0)
+		{
+			response = "Take your own advice. I cannot speak.";
+		}
+		
+		else if (findKeyword(statement, "no") >= 0)
+		{
+			response = "Why so negative?";
 		}
 
 		// Responses which require transformations
@@ -70,6 +105,7 @@ public class Magpie4
 			{
 				response = getRandomResponse();
 			}
+			
 		}
 		return response;
 	}
