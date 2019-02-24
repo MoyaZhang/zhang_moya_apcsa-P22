@@ -13,14 +13,26 @@ public class RPSRunner
 		char response;
 		
 		//add in a do while loop after you get the basics up and running
+			do {
 		
-			String player = "";
-		
-			out.print("type in your prompt [R,P,S] :: ");
+			out.print("Rock-Paper-Scissors - pick your weapon [R,P,S] :: ");
+			String player = keyboard.next();
 			
 			//read in the player value
 		
-			RockPaperScissors game = new RockPaperScissors();		
+			RockPaperScissors game = new RockPaperScissors();
+			game.setPlayers(player);
+			
+			out.println(game);
+			
+			out.print("\nDo you want to play again? ");
+			response = keyboard.next().charAt(0);
+			
+			out.println();
+			
+			}while (response!=('n')&&response!=('N'));
+			
+			
 	}
 }
 

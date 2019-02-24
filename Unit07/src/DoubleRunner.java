@@ -1,12 +1,12 @@
 //(c) A+ Computer Science
 // www.apluscompsci.com
-//Name -  
+//Name -  Moya Zhang
 
 import static java.lang.System.*;
 
 public class DoubleRunner
 {
-	public static void main(String[] args)
+	public static void main (String args[])
 	{
 		BiggestDouble run = new BiggestDouble(4.5,6.7,7.8,9.0);
 		System.out.println(run);

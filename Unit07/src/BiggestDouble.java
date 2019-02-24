@@ -1,8 +1,6 @@
 //(c) A+ Computer Science
 // www.apluscompsci.com
-//Name -  
-
-import static java.lang.System.*;
+//Name -  Moya Zhang
 
 public class BiggestDouble
 {
