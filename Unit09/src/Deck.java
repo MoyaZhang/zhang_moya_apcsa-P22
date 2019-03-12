@@ -30,15 +30,28 @@ public class Deck {
 	 * @param suits is an array containing all of the card suits.
 	 * @param values is an array containing all of the card point values.
 	 */
+	
+	/*
+	public Deck(String[] ranks, String[] suits, int[] values) {
+		cards = new ArrayList<Card>();
+		for (int j = 0; j < ranks.length; j++){
+			for (String suitString : suits) {
+				cards.add(new Card(ranks[j], suitString, values[j]));
+			}
+		}
+		size = cards.size();
+		shuffle();
+	}
+	
+	*/
 	public Deck(String[] ranks, String[] suits, int[] values) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 		cards = new Card [ranks.length*suits.length];
 		
-		for (int h = 0, j = 0; h < suits.length; h++) {
-			for (int i = 0; i < ranks.length; i++) {
-				Card c = new Card (ranks[i], suits [h], values[h]);
-				cards[j] = c;
-				j++;
+		for (int h = 0; h < ranks.length; h++) {
+			for (int i = 0; i < suits.length; i++) {
+				int cardInd = (suits.length)*h + i;
+				cards [cardInd] = new Card (ranks[h], suits [i], values[h]);
 			}
 		}
 		
