@@ -120,6 +120,22 @@ public class Deck {
 	 * @return the card just dealt, or null if all the cards have been
 	 *         previously dealt.
 	 */
+	
+	/*
+	public Card deal() {
+	
+		if (size > 0) {
+			size--;
+			return cards.get(size);
+		}
+		
+		else {
+			return null;
+		}
+	}
+	
+	 */
+	
 	public Card deal() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 	
@@ -138,6 +154,39 @@ public class Deck {
 	 * @return a string representation of this deck.
 	 */
 	@Override
+	
+	/*
+	public String toString() {
+		String rtn = "size = " + size + "\n\nUndealt cards: \n";
+
+		for (int k = size - 1; k >= 0; k--) {
+			rtn = rtn + cards.get(k);
+			if (k != 0) {
+				rtn = rtn + ", ";
+			}
+			if ((size - k) % 2 == 0) {
+				// Insert carriage returns so entire deck is visible on console.
+				rtn = rtn + "\n";
+			}
+		}
+
+		rtn = rtn + "\n\nDealt cards: \n";
+		for (int k = size; k >= size; k--) {
+			rtn = rtn + cards.get(k);
+			if (k != size) {
+				rtn = rtn + ", ";
+			}
+			if ((k - size) % 2 == 0) {
+				// Insert carriage returns so entire deck is visible on console.
+				rtn = rtn + "\n";
+			}
+		}
+
+		rtn = rtn + "\n";
+		return rtn;
+	}
+	*/
+	
 	public String toString() {
 		String rtn = "size = " + size + "\n\nUndealt cards: \n";
 
