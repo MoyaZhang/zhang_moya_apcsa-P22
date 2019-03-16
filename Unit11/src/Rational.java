@@ -16,34 +16,21 @@ class Rational implements Comparable<Rational>
 	
 	public Rational (int n, int d) {
 		setRational (n,d);
+		reduce();
 	}
 
 	//write a setRational method
-	public void setRational (int numerator, int denominator) {
-		if (denominator == 0)
-			denominator = 1;
-		
-		if (denominator < 0) {
-			numerator = numerator * -1;
-			denominator = denominator * -1;
-		}
-		
-		num = numerator;
-		den = denominator;
-		
+	public void setRational (int num1, int num2) {
+		setNums(num1, num2);
 		reduce();
 	}
 	
 
 	//write  a set method for numerator and denominator
-	public void setNum (int numerator) {
-		num = numerator;
+	public void setNums (int n, int d) {
+		num = n;
+		den = d;
 	}
-	
-	public void setDem (int denominator) {
-		den = denominator;
-	}
-
 	
 	public void add(Rational other)
 	{
@@ -52,38 +39,34 @@ class Rational implements Comparable<Rational>
 		//new numerator = (num1 * den2 + num2 * den1)
 		//new denominator = (den1 * den2)
 		
-		  int commonDenominator = den * other.getDenominator();
-	      int numerator1 = num * other.getDenominator();
-	      int numerator2 = other.getNumerator() * den;
-	      int sum = numerator1 + numerator2;
-
-	      new Rational (sum, commonDenominator);
+		  num = num * other.getDenominator() + other.getNumerator() * den;
+		  den = den * other.getDenominator();
 	      reduce();
 	      
 	}
 
 	private void reduce()
 	{
-		 if (num != 0)
-	      {
-	         int common = gcd (Math.abs(num), den);
-
-	         num = num / common;
-	         den = den / common;
-	      }
+		int gcd = gcd(num,den);
+		num/= gcd;
+		den/=gcd;
 
 	}
 
 	private int gcd(int numOne, int numTwo)
 	{
-		    if (numTwo == 0) return numOne;
-		    return gcd(numTwo,numOne % numTwo);
-	
+		    int max = 1;
+		    for (int i = 1; i <= numOne; i++) {
+		    	if (numOne%i == 0 && numTwo%i ==0) {
+		    		max = i;
+		    	}
+		    }
+		    return max;
 	}
 
 	public Object clone ()
 	{
-		return "";
+		return this;
 	}
 
 
@@ -98,29 +81,22 @@ class Rational implements Comparable<Rational>
 		return den;
 	}
 	
-	public boolean equals( Object obj)
+	public boolean equals(Object obj)
 	{
-		 return (num == obj.getNumerator () &&
-	               den == obj.getDenominator() );
+		 return (num == ((Rational)obj).getNumerator () &&
+	               den == ((Rational)obj).getDenominator() );
 
 	}
 
 	public int compareTo(Rational other)
 	{
+		  double first = (double) num/den;
+	      double second = (double)other.getNumerator()/other.getDenominator();
 
-
-		Rational n= (Rational)other;
-
-	      double thisValue = (double)num / den;
-	      double otherValue = (double)n.num / n.den;
-
-	      if (Math.abs(thisValue - otherValue) == 0)
-	         return 0;
+	      if (first>second)
+	         return 1;
 	      else
-	         if (thisValue > otherValue)
-	            return 1;
-	         else
-	            return -1;
+	         return -1;
 	}
 
 

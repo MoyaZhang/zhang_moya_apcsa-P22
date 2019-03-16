@@ -11,28 +11,30 @@ import static java.lang.System.*;
 
 public class ToyStore
 {
-	private ArrayList<Toy> toyList;
+	private ArrayList<Toy> toyList = new ArrayList<Toy>();
 
-	public ToyStore()
+	public ToyStore(String toys)
 	{
-		loadToys ("");
+		loadToys (toys);
 	}
 
 	public void loadToys( String toys )
 	{
-		toyList = new ArrayList<Toy>();
-		ArrayList<String> ts = new ArrayList<>(Arrays.asList(toys.split(", ")));
-		for(int i = 0; i < ts.size(); i++)
-		{
-			String name = ts.get(i); 
-			Toy t = getThatToy(name);
-			
-			if (t == null) {
-				toyList.add (new Toy (name));
+		for (String s: toys.split(", ")) {
+			boolean match = false;
+			if (toyList.size() > 0) {
+				for (Toy toy: toyList) {
+					if (toy.getName().equals(s)) {
+						toy.setCount((toy.getCount() +1));
+						match = true;
+					}
+				}
 			}
 			
-			else t.setCount(t.getCount()+1);
-
+			if (!match) {
+				toyList.add((new Toy (s)));
+				getThatToy(s).setCount(1);
+			}
 		}
 	}
   
@@ -43,31 +45,43 @@ public class ToyStore
   				return t;
   			}
   		}
-  		return null;
+  		return new Toy ();
   	}
   
   	public String getMostFrequentToy()
   	{
-  		String name = toyList.get(0).getName();
-		int max = toyList.get(0).getCount();
+  		Toy result = toyList.get(0);
 		for(Toy t: toyList)
 		{
-			if(max < t.getCount())
+			if(t.getCount() > result.getCount())
 			{
-				max = t.getCount();
-				name = t.getName();
+				result = t;
 			}
 		}
-		return name;
+		return result.getName();
   	}  
   
   	public void sortToysByCount()
   	{
-  		
+  		boolean sorted = false;
+  		while (!sorted) {
+  			int fixed = 0;
+  			for (int i = 0; i < toyList.size() - 1; i++) {
+  				if (toyList.get(i).getCount() > toyList.get(i+1).getCount()){
+  					Toy temp = toyList.get(i);
+  					toyList.add(i, toyList.get(i+1));
+  					toyList.remove(i+1);
+  					toyList.remove(i+1);
+  					toyList.add (i+1, temp);
+  					fixed +=1;
+  				}
+  			}
+  			if (fixed == 0) sorted = true;
+  		}
   	}  
   	  
 	public String toString()
 	{
-		return toyList.toString();
+		return Arrays.toString(toyList.toArray());
 	}
 }
