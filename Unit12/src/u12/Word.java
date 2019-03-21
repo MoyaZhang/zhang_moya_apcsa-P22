@@ -1,3 +1,4 @@
+package u12;
 //(c) A+ Computer Science
 //www.apluscompsci.com
 //Name -
@@ -29,11 +30,15 @@ public class Word implements Comparable<Word>
 		else {
 			char [] wordlets = word.toCharArray();
 			char [] rhslets = rhs.getWord().toCharArray();
-			for (int i = 0; i < word.length(); i++) {
-				if (wordlets[i] == rhslets[i]) {
-					
+			for (int i = 0; i < wordlets.length; i++) {
+				if (wordlets[i] > rhslets[i]) {
+					return 1;
+				}
+				else if (wordlets[i] < rhslets[i]) {
+					return -1;
 				}
 			}
+			return 0;
 		}
 	}
 
