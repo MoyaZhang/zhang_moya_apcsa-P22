@@ -28,31 +28,33 @@ public class PongExtension extends Canvas implements KeyListener, Runnable
 	{
 		//set up all variables related to the game
 				ball = new Ball(350, 200);
-				mainPaddle = new PaddleExtension(375, 275, 50, 50, Color.BLUE, 2);
+				mainPaddle = new PaddleExtension(375, 275, 50, 50, Color.PINK, 4);
 		//blocks on the left
 		for (int x = 5; x < 85; x += 40) {
-		for (int y = 5; y < 600-55; y += 80) {
-						blocks.add(new Block(x, y, 35, 75, Color.BLACK));
+			for (int y = 5; y < 545; y += 80) {
+						blocks.add(new Block(x, y, 30, 75, Color.BLACK));
 					}
-				}
+			}
 		//blocks on top
 		for (int x = 85; x < 675; x += 80) {
 		for (int y = 5; y < 85; y += 40) {
-						blocks.add(new Block(x, y, 75, 35, Color.BLACK));
+						blocks.add(new Block(x, y, 75, 30, Color.BLACK));
 					}
 				}
 		//blocks on bottom
 		for (int x = 85; x < 675; x += 80) {
 		for (int y = 525; y > 445; y -= 40) {
-						blocks.add(new Block(x, y, 75, 35, Color.BLACK));
+						blocks.add(new Block(x, y, 75, 30, Color.BLACK));
 					}
 				}
 		//blocks on left
 		for (int x = 725; x < 800; x += 40) {
-		for (int y = 5; y < 600-55; y += 80) {
-						blocks.add(new Block(x, y, 35, 75, Color.BLACK));
+		for (int y = 5; y < 545; y += 80) {
+						blocks.add(new Block(x, y, 30, 75, Color.BLACK));
 					}
 				}
+		
+				
 				keys = new boolean[4];
 		    	setBackground(Color.WHITE);
 				setVisible(true);
@@ -110,11 +112,11 @@ public class PongExtension extends Canvas implements KeyListener, Runnable
 		//see if the ball hits the top or bottom wall 
 		if(ball.getY()<0) {
 					ball.setYSpeed(Math.abs(ball.getYSpeed()));
-				}
+			}
 		else if (ball.getY() > getHeight()) {
 					ball.setYSpeed(-1*Math.abs(ball.getYSpeed()));
 				}
-		//see if the ball hits the left paddle
+		//see if the ball hits the paddle
 		if (ball.didCollideLeft(mainPaddle)) 
 				{
 					ball.setXSpeed(Math.abs(ball.getXSpeed()));
@@ -130,19 +132,33 @@ public class PongExtension extends Canvas implements KeyListener, Runnable
 					ball.setYSpeed(-Math.abs(ball.getYSpeed()));
 				}
 		for (Block b: blocks) {
-		if (ball.didCollideLeft(b) || ball.didCollideRight(b) ) {
-						b.setColor(Color.WHITE);
+		if ((ball.didCollideLeft(b) || ball.didCollideRight(b) ) && !(b.getColor().equals(Color.GRAY))) {
+						b.setColor(Color.GRAY);
 						b.draw(graphToBack);
-						blocks.remove(b);
+						//blocks.remove(b);
 						ball.setXSpeed(-ball.getXSpeed());
 					}
-		else if (ball.didCollideTop(b) || ball.didCollideBottom(b)) {
-						b.setColor(Color.WHITE);
+		else if ((ball.didCollideLeft(b) || ball.didCollideRight(b) ) && !(b.getColor().equals(Color.GRAY))) {
+						b.setColor(Color.GRAY);
 						b.draw(graphToBack);
-						blocks.remove(b);
+						//blocks.remove(b);
 						ball.setYSpeed(-ball.getYSpeed());
 					}
-				}
+		else if ((ball.didCollideLeft(b) || ball.didCollideRight(b) ) && b.getColor().equals(Color.GRAY)) {
+			b.setColor(Color.WHITE);
+			b.draw(graphToBack);
+			blocks.remove(b);
+			ball.setXSpeed(-ball.getXSpeed());
+		}
+		else if ((ball.didCollideLeft(b) || ball.didCollideRight(b) ) && b.getColor().equals(Color.GRAY)) {
+			b.setColor(Color.WHITE);
+			b.draw(graphToBack);
+			blocks.remove(b);
+			ball.setYSpeed(-ball.getYSpeed());
+		}
+	}
+
+		
 		//see if the paddles need to be moved
 		if(keys[0] == true && mainPaddle.getY() >= 85)
 				{
@@ -164,39 +180,39 @@ public class PongExtension extends Canvas implements KeyListener, Runnable
 		if (!played) {
 		//set up all variables related to the game
 						ball = new Ball(350, 200);
-						mainPaddle = new PaddleExtension(375, 275, 50, 50, Color.BLUE, 2);
+						mainPaddle = new PaddleExtension(375, 275, 50, 50, Color.PINK, 2);
 		//blocks on the left
 		for (int x = 5; x < 85; x += 40) {
-		for (int y = 5; y < 600-55; y += 80) {
-								blocks.add(new Block(x, y, 35, 75, Color.BLACK));
-							}
-						}
+			for (int y = 5; y < 545; y += 47) {
+					blocks.add(new Block(x, y, 30, 35, Color.BLACK));
+					}
+			}
 		//blocks on top
-		for (int x = 85; x < 675; x += 80) {
-		for (int y = 5; y < 85; y += 40) {
-								blocks.add(new Block(x, y, 75, 35, Color.BLACK));
-							}
-						}
+		for (int x = 85; x < 690; x += 49) {
+			for (int y = 5; y < 85; y += 40) {
+					blocks.add(new Block(x, y, 35, 30, Color.BLACK));
+			}
+		}
 		//blocks on bottom
-		for (int x = 85; x < 675; x += 80) {
-		for (int y = 525; y > 445; y -= 40) {
-								blocks.add(new Block(x, y, 75, 35, Color.BLACK));
-							}
-						}
+		for (int x = 85; x < 690; x += 49) {
+			for (int y = 525; y > 445; y -= 40) {
+					blocks.add(new Block(x, y, 35, 30, Color.BLACK));
+				}
+		}
 		//blocks on left
 		for (int x = 725; x < 800; x += 40) {
-		for (int y = 5; y < 600-55; y += 80) {
-								blocks.add(new Block(x, y, 35, 75, Color.BLACK));
-							}
-						}
+			for (int y = 5; y < 545; y += 47) {
+				blocks.add(new Block(x, y, 30, 35, Color.BLACK));
+				}
+		}
 						played = true;
-						graphToBack.setColor(Color.BLUE);
+						graphToBack.setColor(Color.PINK);
 						graphToBack.drawString("Level 2!", 400, 300);
 					}
 		else {
 						ball.setXSpeed(0);
 						ball.setYSpeed(0);
-						graphToBack.setColor(Color.BLUE);
+						graphToBack.setColor(Color.PINK);
 						graphToBack.drawString("You win!", 400, 300);
 					}
 				}

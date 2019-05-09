@@ -84,45 +84,48 @@ public class Ball extends Block implements Collidable
 	}
 	
 
-	public boolean didCollideLeft(Object obj) {
-		Paddle paddle = (Paddle)obj;
-		if (getX()<=paddle.getX()+paddle.getWidth()&&getX()>paddle.getX()&&(getY()>=paddle.getY() && getY()<=paddle.getY()+paddle.getHeight())){
-			return true;
+		public boolean didCollideLeft(Object obj) {
+			Block other = (Block)obj;
+			return (getX() <= (other.getX() + other.getWidth() + Math.abs(getXSpeed()))
+			&& getX() > (other.getX() - getWidth() - Math.abs(getXSpeed()))
+			&& getX()>=(other.getX())
+			&& getY()<=(other.getY()+other.getHeight())
+			&& (getY()+getHeight())>=other.getY());
 		}
-		return false;
-	}
-
-	public boolean didCollideRight(Object obj) {
-		Paddle paddle = (Paddle)obj;
-		if (getX()+getWidth()>=paddle.getX()&&getX()<paddle.getX()&&(getY()>=paddle.getY() && getY()<=paddle.getY()+paddle.getHeight())){
-			return true;
+		public boolean didCollideRight(Object obj) {
+			Block other = (Block)obj;
+			return (getX() < (other.getX() + other.getWidth() + Math.abs(getXSpeed()))
+			&& getX() >= (other.getX() - getWidth() - Math.abs(getXSpeed()))
+			&& getX()<=other.getX()+other.getWidth()
+			&& getY()<=(other.getY()+other.getHeight())
+			&& (getY()+getHeight())>=other.getY());
 		}
-		return false;
-	}
-
-	public boolean didCollideTop(Object obj) {
-		Paddle paddle = (Paddle)obj;
-		if (getY()+getHeight()>=paddle.getY() && getY() < paddle.getY()+paddle.getHeight() && (getX()>=paddle.getX() && getX()+getWidth()<=paddle.getX()+paddle.getWidth())){
-			return true;
+		public boolean didCollideTop(Object obj) {
+			Block other = (Block)obj;
+			return (getY() >= (other.getY() - getHeight() - Math.abs(getYSpeed()))
+			&& getY() < (other.getY() + other.getHeight() + Math.abs(getYSpeed())) 
+			&& (getX()>=other.getX()
+			&& getX()<=(other.getX()+other.getWidth())
+			&& (getX()+getWidth())>=other.getX()
+			&& (getX()+getWidth())<=other.getX()+other.getWidth()));
 		}
-		return false;
-	}
-
-	public boolean didCollideBottom(Object obj) {
-		Paddle paddle = (Paddle) obj;
-		if (getY()+getHeight()>paddle.getY() && getY() <= paddle.getY()+paddle.getHeight() && (getX()>=paddle.getX() && getX()+getWidth()<=paddle.getX()+paddle.getWidth())){
-					return true;			
-				}
-		return false;
-	}
-	/* if(  (ball’s x <=  left paddle’s x +left paddle’s width+abs(ball x Spd)
+		public boolean didCollideBottom(Object obj) {
+			Block other = (Block)obj;
+			return (getY() > (other.getY() - getHeight() - Math.abs(getYSpeed()))
+			&& getY() <= (other.getY() + other.getHeight() + Math.abs(getYSpeed())) 
+			&& (getX()>=other.getX()
+			&& getX()<=(other.getX()+other.getWidth())
+			&& (getX()+getWidth())>=other.getX()
+			&& (getX()+getWidth())<=other.getX()+other.getWidth()));
+		}
+	/* if(  (ballï¿½s x <=  left paddleï¿½s x +left paddleï¿½s width+abs(ball x Spd)
          &&
-         ( balls’s y >= left paddle’s y &&
-         balls’s y <= left paddle’s y + left paddle’s height  ||
-         ball’s y + ball’s height >= left paddle’s y &&
-         ball’s y + ball’s height  < left paddle’s y + paddle’s height )  )
+         ( ballsï¿½s y >= left paddleï¿½s y &&
+         ballsï¿½s y <= left paddleï¿½s y + left paddleï¿½s height  ||
+         ballï¿½s y + ballï¿½s height >= left paddleï¿½s y &&
+         ballï¿½s y + ballï¿½s height  < left paddleï¿½s y + paddleï¿½s height )  )
 {
-   if(  balls’s x   <=   left paddle’s x +left paddle’s width – abs(ball x Spd )
+   if(  ballsï¿½s x   <=   left paddleï¿½s x +left paddleï¿½s width ï¿½ abs(ball x Spd )
        set Y speed to negative of current speed
    else
        set X speed to negative of current speed
