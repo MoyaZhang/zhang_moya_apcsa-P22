@@ -17,14 +17,9 @@ import java.util.ArrayList;
 public class OuterSpace extends Canvas implements KeyListener, Runnable
 {
 	private Ship ship;
-	private Alien alienOne;
-	private Alien alienTwo;
-
-	/* uncomment once you are ready for this part
-	 *
-   private AlienHorde horde;
+	private AlienHorde horde;
 	private Bullets shots;
-	*/
+	private boolean game = true;
 
 	private boolean[] keys;
 	private BufferedImage back;
@@ -38,8 +33,9 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		//instantiate other instance variables
 		//Ship, Alien
 		ship = new Ship (400,300,45,45,1);
-		alienOne = new Alien (500, 100, 45, 45, 1);
-		alienTwo = new Alien (300, 100, 45, 45, 1);
+		shots = new Bullets();
+		shots.add(new Ammo(-10,-10, 0));
+		horde = new AlienHorde(20);
 
 		this.addKeyListener(this);
 		new Thread(this).start();
@@ -71,24 +67,26 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		graphToBack.setColor(Color.WHITE);
 		graphToBack.drawString("StarFighter ", 25, 50 );
 
-		if(keys[0] == true)
+		if(ship.getX()>=-10 && keys[0] == true)
 		{
 			ship.move("LEFT");
 		}
-
-		//add code to move Ship, Alien, etc.
-		if(keys[1] == true)
+		if(ship.getX()<=715 && keys[1] == true) 
 		{
 			ship.move("RIGHT");
 		}
-		if(keys[2] == true)
+		if(ship.getY()>=-10 && keys[2] == true)
 		{
 			ship.move("UP");
 		}
-		if(keys[3] == true)
+		if(ship.getY()<=470 && keys[3] == true)
 		{
 			ship.move("DOWN");
 		}
+		if (keys[4] == true) {
+            shots.add(new Ammo(ship.getX()+20, ship.getY()+25, 3));
+            keys[4] = false;
+        }
 
 
 		//add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
@@ -98,10 +96,32 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		graphToBack.fillRect(0, 0, 800, 600);
 		
 		ship.draw(graphToBack);
-		alienOne.draw(graphToBack);
-		alienTwo.draw(graphToBack);
+		horde.drawEmAll(graphToBack);
+		shots.drawEmAll(graphToBack);
+		shots.moveEmAll();
+		horde.moveEmAll();
+		horde.removeDeadOnes(shots.getList());
 
-
+		if (horde.gameIsWon()==true)
+		{
+	
+			graphToBack.clearRect(0, 0, 800, 600);
+			graphToBack.setColor(Color.GREEN);
+			graphToBack.drawString("YOU WON!", 350, 300);
+		}
+		
+		if (horde.touchingShip(graphToBack, ship)) {
+			game = false;
+		}
+		
+		if (game == false)
+		{
+			graphToBack.clearRect(0, 0, 800, 600);
+			//setBackground(Color.black);
+			graphToBack.setColor(Color.RED);
+			graphToBack.drawString("YOU LOSE!", 350, 300);
+		}
+		
 		twoDGraph.drawImage(back, null, 0, 0);
 	}
 
