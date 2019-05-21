@@ -168,14 +168,21 @@ public class PictureTester
   
   public static void testEncodeAndDecode() 
   {
-	Picture message = new Picture("src/images/apple_icon.jpg");
-	message.explore();
+	Picture message = new Picture("src/images/msg.jpg");
+	Picture apple = new Picture("src/images/apple_icon.jpg");
+
 	
 	Picture beach = new Picture("src/images/beach.jpg");
 	beach.explore();
+	
+	message.explore();
 	beach.encode(message);
 	beach.explore();
+	beach.decode().explore();
 	
+	apple.explore();
+	beach.encode(apple);
+	beach.explore();
 	beach.decode().explore();
   }
   

@@ -554,11 +554,17 @@ public class Picture extends SimplePicture
 				  }
 				  
 				  if (sumr % 2 == 1) {
-					  currPixel.setRed(currPixel.getRed() + 1);
+					  if (currPixel.getRed() % 10 == 9 && (currPixel.getRed() / 10 ) % 10 != 9) {
+						  currPixel.setRed(currPixel.getRed() - 1);
+					  }
+					  else currPixel.setRed(currPixel.getRed() + 1);
 				  }
 				  
 				  if (messagePixel.colorDistance(Color.BLACK)< 50) {
-					  currPixel.setRed(currPixel.getRed() - 1);
+					  if (currPixel.getRed() % 10 == 0 && (currPixel.getRed() / 10 ) % 10 != 0) {
+						  currPixel.setRed(currPixel.getRed() + 1);
+					  }
+					  else currPixel.setRed(currPixel.getRed() - 1);
 					  count++;
 				  }
 			  }
@@ -571,11 +577,17 @@ public class Picture extends SimplePicture
 				  }
 				  
 				  if (sumb % 2 == 1) {
-					  currPixel.setBlue(currPixel.getBlue() + 1);
+					  if (currPixel.getBlue() % 10 == 9 && (currPixel.getBlue() / 10 ) % 10 != 9) {
+						  currPixel.setBlue(currPixel.getBlue() - 1);
+					  }
+					  else currPixel.setBlue(currPixel.getBlue() + 1);
 				  }
 				  
-				  if (messagePixel.colorDistance(Color.BLACK) < 50) {
-					  currPixel.setBlue(currPixel.getBlue() - 1);
+				  if (messagePixel.colorDistance(Color.BLACK)< 50) {
+					  if (currPixel.getBlue() % 10 == 0 && (currPixel.getBlue() / 10 ) % 10 != 0) {
+						  currPixel.setBlue(currPixel.getBlue() + 1);
+					  }
+					  else currPixel.setBlue(currPixel.getBlue() - 1);
 					  count++;
 				  }
 				  
@@ -590,11 +602,17 @@ public class Picture extends SimplePicture
 				  }
 				  
 				  if (sumg % 2 == 1) {
-					  currPixel.setGreen(currPixel.getGreen() + 1);
+					  if (currPixel.getGreen() % 10 == 9 && (currPixel.getGreen() / 10 ) % 10 != 9) {
+						  currPixel.setGreen(currPixel.getGreen() - 1);
+					  }
+					  else currPixel.setGreen(currPixel.getGreen() + 1);
 				  }
 				  
-				 if (messagePixel.colorDistance(Color.BLACK)< 50) {
-					  currPixel.setGreen(currPixel.getGreen() - 1);
+				  if (messagePixel.colorDistance(Color.BLACK)< 50) {
+					  if (currPixel.getGreen() % 10 == 0 && (currPixel.getGreen() / 10 ) % 10 != 0) {
+						  currPixel.setGreen(currPixel.getGreen() + 1);
+					  }
+					  else currPixel.setGreen(currPixel.getGreen() - 1);
 					  count++;
 				  }
 			  }
@@ -649,14 +667,14 @@ public class Picture extends SimplePicture
 				  else messagePixel.setColor(Color.WHITE);
 			  }
 			  else {
-				  int sumg = 0;
+				  int sumgreen = 0;
 				  int green = currPixel.getGreen();
 				  while (green > 0) {
-					  sumg += (green % 10);
+					  sumgreen += (green % 10);
 					  green /= 10;
 				  }
 				  
-				  if (sumg % 2 == 1) {
+				  if (sumgreen % 2 == 1) {
 					  messagePixel.setColor(Color.BLACK);
 				  }
 				  
