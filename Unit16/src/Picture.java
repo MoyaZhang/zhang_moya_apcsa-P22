@@ -533,6 +533,141 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  public void encode(Picture messagePic) {
+	  Pixel[][] messagePixels = messagePic.getPixels2D();
+	  Pixel[][] currPixels = this.getPixels2D();
+	  Pixel currPixel = null;
+	  Pixel messagePixel = null;
+	  int count = 0;
+	  for (int row = 0; row < this.getHeight(); row++)
+	  {
+		  for (int col = 0; col < this.getWidth(); col++)
+		  {
+			  currPixel = currPixels[row][col];
+			  messagePixel = messagePixels[row][col];
+			  if (row % 3 == 0) {
+				  int sumr = 0;
+				  int red = currPixel.getRed();
+				  while (red > 0) {
+					  sumr += red % 10;
+					  red /= 10;
+				  }
+				  
+				  if (sumr % 2 == 1) {
+					  currPixel.setRed(currPixel.getRed() + 1);
+				  }
+				  
+				  if (messagePixel.colorDistance(Color.BLACK)< 50) {
+					  currPixel.setRed(currPixel.getRed() - 1);
+					  count++;
+				  }
+			  }
+			  else if (row % 3 == 1) {
+				  int sumb = 0;
+				  int blue = currPixel.getBlue();
+				  while (blue > 0) {
+					  sumb += blue % 10;
+					  blue /= 10;
+				  }
+				  
+				  if (sumb % 2 == 1) {
+					  currPixel.setBlue(currPixel.getBlue() + 1);
+				  }
+				  
+				  if (messagePixel.colorDistance(Color.BLACK) < 50) {
+					  currPixel.setBlue(currPixel.getBlue() - 1);
+					  count++;
+				  }
+				  
+				  
+			  }
+			  else {
+				  int sumg = 0;
+				  int green = currPixel.getGreen();
+				  while (green > 0) {
+					  sumg += green % 10;
+					  green /= 10;
+				  }
+				  
+				  if (sumg % 2 == 1) {
+					  currPixel.setGreen(currPixel.getGreen() + 1);
+				  }
+				  
+				 if (messagePixel.colorDistance(Color.BLACK)< 50) {
+					  currPixel.setGreen(currPixel.getGreen() - 1);
+					  count++;
+				  }
+			  }
+			  
+		  }
+	  }
+		  
+	 System.out.println(count);
+  }
+  
+  public Picture decode() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  int height = this.getHeight();
+	  int width = this.getWidth();
+	  Pixel currPixel = null;
+	  Pixel messagePixel = null;
+	  Picture messagePicture = new Picture(height,width);
+	  Pixel[][] messagePixels = messagePicture.getPixels2D();
+	  int count = 0;
+	  for (int row = 0; row < this.getHeight(); row++)
+	  {
+		  for (int col = 0; col < this.getWidth(); col++)
+		  {
+			  currPixel = pixels[row][col];
+			  messagePixel = messagePixels[row][col];
+			  if (row % 3 == 0) {
+				  int sumred = 0;
+				  int r = currPixel.getRed();
+				  while (r > 0) {
+					  sumred += (r % 10);
+					  r /= 10;
+				  }
+				  
+				  if (sumred % 2 == 1) {
+					  messagePixel.setColor(Color.BLACK);
+				  }
+				  
+				  else messagePixel.setColor(Color.WHITE);
+			  }
+			  else if (row % 3 == 1) {
+				  int sumblue = 0;
+				  int b = currPixel.getBlue();
+				  while (b > 0) {
+					  sumblue += (b % 10);
+					  b /= 10;
+				  }
+				  
+				  if (sumblue % 2 == 1) {
+					  messagePixel.setColor(Color.BLACK);
+				  }
+				  
+				  else messagePixel.setColor(Color.WHITE);
+			  }
+			  else {
+				  int sumg = 0;
+				  int green = currPixel.getGreen();
+				  while (green > 0) {
+					  sumg += (green % 10);
+					  green /= 10;
+				  }
+				  
+				  if (sumg % 2 == 1) {
+					  messagePixel.setColor(Color.BLACK);
+				  }
+				  
+				  else messagePixel.setColor(Color.WHITE);
+			  }
+		  }
+	  }
+	  System.out.println(count);
+	  return messagePicture;
+  }
+  
   public static Color avgColor(Color one, Color two, Color three) {
 	  int avgRed = (one.getRed() + two.getRed() + three.getRed())/3;
 	  int avgBlue = (one.getBlue() + two.getBlue() + three.getBlue())/3;
